@@ -190,7 +190,6 @@ func (bt *Nessusbeat) Run(b *beat.Beat) error {
 						},
 					}
 				bt.client.Publish(event)
-                                logp.Info("Event Published")
 			}
 		}
 	}
