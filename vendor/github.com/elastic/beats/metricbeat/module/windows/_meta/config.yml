@@ -1,5 +1,0 @@
-- module: windows
-  metricsets: ["perfmon"]
-  enabled: false
-  period: 10s
-  perfmon.counters:

@@ -27,7 +27,12 @@
 			"path": "github.com/lair-framework/go-nessus",
 			"revision": "585a96dc18959b5f06044ea405e3774030a1e1d3",
 			"revisionTime": "2015-04-08T21:31:05Z"
+		},
+		{
+			"path": "github.com/elastic/beats",
+			"version": "=6.2",
+			"versionExact": "6.2"
 		}
 	],
-	"rootPath": "github.com/darvid/nessusbeat"
+	"rootPath": "github.com/dunbarcyber/nessusbeat"
 }

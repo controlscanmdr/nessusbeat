@@ -1,3 +1,0 @@
-== Windows Module
-
-This is the Windows module.

@@ -12,19 +12,18 @@ import (
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/elastic/beats/libbeat/publisher"
 
 	"github.com/OnBeep/backoff"
 	"github.com/attwad/nessie"
 	"github.com/fsnotify/fsnotify"
 
-	"github.com/darvid/nessusbeat/config"
+	"github.com/dunbarcyber/nessusbeat/config"
 )
 
 type Nessusbeat struct {
 	done   chan struct{}
 	config config.Config
-	client publisher.Client
+	client beat.Client
 }
 
 func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
@@ -103,7 +102,7 @@ func (bt *Nessusbeat) Run(b *beat.Beat) error {
 		logp.WTF(err.Error())
 	}
 
-	bt.client = b.Publisher.Connect()
+	bt.client, err = b.Publisher.Connect()
 	results := make(chan []byte)
 
 	go func() {
@@ -169,28 +168,29 @@ func (bt *Nessusbeat) Run(b *beat.Beat) error {
 					logp.Err("Invalid number of fields: %d", len(record))
 					continue
 				}
-				event := common.MapStr{
-					"@timestamp":    common.Time(time.Now()),
-					"type":          b.Info.Name,
-					"plugin_id":     record[0],
-					"cve":           record[1],
-					"cvss":          record[2],
-					"risk":          record[3],
-					"host":          record[4],
-					"protocol":      record[5],
-					"port":          record[6],
-					"name":          record[7],
-					"synopsis":      record[8],
-					"description":   record[9],
-					"solution":      record[10],
-					"see_also":      record[11],
-					"plugin_output": record[12],
-				}
-				timestampFields := strings.Split(bt.config.TimestampFields, ",")
-				for _, field := range timestampFields {
-					event[strings.TrimSpace(field)] = event["@timestamp"]
-				}
-				bt.client.PublishEvent(event)
+				
+				event := beat.Event{
+					Timestamp: time.Now(),
+					Fields:  common.MapStr{
+						"@timestamp":    common.Time(time.Now()),
+						"type":          b.Info.Name,
+						"plugin_id":     record[0],
+						"cve":           record[1],
+						"cvss":          record[2],
+						"risk":          record[3],
+						"host":          record[4],
+						"protocol":      record[5],
+						"port":          record[6],
+						"name":          record[7],
+						"synopsis":      record[8],
+						"description":   record[9],
+						"solution":      record[10],
+						"see_also":      record[11],
+						"plugin_output": record[12],
+						},
+					}
+				bt.client.Publish(event)
+                                logp.Info("Event Published")
 			}
 		}
 	}

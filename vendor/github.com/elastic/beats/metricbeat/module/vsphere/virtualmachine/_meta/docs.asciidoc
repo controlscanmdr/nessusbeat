@@ -1,3 +1,0 @@
-=== vsphere virtualmachine MetricSet
-
-This is the virtualmachine metricset of the module vsphere.

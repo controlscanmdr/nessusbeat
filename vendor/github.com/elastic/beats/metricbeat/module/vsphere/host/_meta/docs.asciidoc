@@ -1,3 +1,0 @@
-=== vsphere host MetricSet
-
-This is the host metricset of the module vsphere.

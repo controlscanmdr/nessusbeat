@@ -1,9 +1,0 @@
-- key: redis
-  title: "redis"
-  description: >
-    redis Module
-  fields:
-    - name: redis
-      type: group
-      description: >
-      fields:

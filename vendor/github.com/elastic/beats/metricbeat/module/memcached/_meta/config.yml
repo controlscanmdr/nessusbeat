@@ -1,6 +1,0 @@
-- module: memcached
-  metricsets: ["stats"]
-  enabled: false
-  period: 10s
-  hosts: ["localhost:11211"]
-
