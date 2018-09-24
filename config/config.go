@@ -4,15 +4,15 @@
 package config
 
 type Config struct {
-	CaCertPath        string `config:"cacert_path"`
-	ReportPath        string `config:"report_path"`
-	NessusApiUrl      string `config:"api_url"`
-	NessusApiUsername string `config:"api_username"`
-	NessusApiPassword string `config:"api_password"`
-	TimestampFields   string `config:"timestamp_fields"`
+	CACertPath      string `config:"cacert_path"`
+	ReportPath      string `config:"report_path"`
+	APIUrl          string `config:"api_url"`
+	APIUsername     string `config:"api_username"`
+	APIPassword     string `config:"api_password"`
+	TimestampFields string `config:"timestamp_fields"`
 }
 
 var DefaultConfig = Config{
-	ReportPath:   "/opt/nessus/var/nessus/users/admin/reports",
-	NessusApiUrl: "https://localhost:8834",
+	ReportPath: "/opt/nessus/var/nessus/users/admin/reports",
+	APIUrl:     "https://localhost:8834",
 }
