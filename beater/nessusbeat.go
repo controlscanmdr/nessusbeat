@@ -28,7 +28,7 @@ type Nessusbeat struct {
 	name   string          // Configured beat name retrieved from b.Info.Name.
 	mutex  sync.Mutex      // Locking mutex to prevent concurrent writes to scans map.
 	events chan beat.Event // Channel containing the parsed nessus scan events.
-	client beat.Client     //
+	client beat.Client
 }
 
 func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
